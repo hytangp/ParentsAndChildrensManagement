@@ -36,3 +36,6 @@
         @endif
     </tbody>
 </table>
+<div class="d-flex justify-content-center">
+    {{ $childrens->links() }}
+</div>

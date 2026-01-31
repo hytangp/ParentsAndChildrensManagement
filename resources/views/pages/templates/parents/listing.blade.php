@@ -1,6 +1,7 @@
 <table class="table table-dark table-bordered table-striped">
     <thead>
         <tr>
+            <th>Select</th>
             <th>ID</th>
             <th>Name</th>
             <th>Email</th>
@@ -12,11 +13,12 @@
     <tbody>
         @if(!$parents || $parents->isEmpty())
             <tr>
-                <td colspan="7">No parent available.</td>
+                <td colspan="8">No parent available.</td>
             </tr>
         @else
             @foreach($parents as $parent)
                 <tr>
+                    <td><input class="delete-checkboxes" type="checkbox" name="parent_ids" value="{{ $parent->id }}"></td>
                     <td>{{ $parent->id }}</td>
                     <td>{{ $parent->full_name }}</td>
                     <td>{{ $parent->email }}</td>
@@ -36,3 +38,6 @@
         @endif
     </tbody>
 </table>
+<div class="d-flex justify-content-center">
+    {{ $parents->links() }}
+</div>

@@ -82,4 +82,36 @@ $(document).ready(function(){
             }
         });
     });
+
+    $(document).on('change', '.delete-checkboxes', function(){
+        checked = $('.delete-checkboxes').is(':checked');
+        if(checked) {
+            $('#delete-parents').removeClass('d-none')
+        }else{
+            $('#delete-parents').addClass('d-none')
+        }
+    });
+
+    $(document).on('click', '#delete-parents', function(){
+        let parentsDeleteUrl = $(this).data('url');
+        let checkedValues = $('.delete-checkboxes:checked').map(function() {
+            return $(this).val();
+        }).get();
+
+        $.ajax({
+            url: parentsDeleteUrl,
+            data: {
+                "_token": csrfToken,
+                "ids": checkedValues
+            },
+            type: "POST",
+            success: function(response) {
+                $('#parent_listing_table').html(response.data);
+                $('#successAlert').removeClass('d-none').find('strong').text(response.message);
+            },
+            error: function(xhr) {
+                alert(xhr.responseText.message ?? 'Something went wrong');
+            }
+        });
+    });
 });

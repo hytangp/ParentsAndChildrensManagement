@@ -11,6 +11,10 @@ class ChildrenService
         return Childrens::select('id', 'first_name', 'last_name', 'email', 'country', 'birth_date', 'birth_certificate')->get();
     }
 
+    public static function getChildrensPaginate(){
+        return Childrens::select('id', 'first_name', 'last_name', 'email', 'country', 'birth_date', 'birth_certificate')->paginate(5);
+    }
+
     public static function getChildren($id){
         return Childrens::find($id);
     }

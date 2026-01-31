@@ -16,7 +16,7 @@ class ChildrensController extends Controller
     public function index()
     {
         try{
-            $childrens = ChildrenService::getChildrens();
+            $childrens = ChildrenService::getChildrensPaginate();
             $parents = ParentService::getParents();
 
             return view('pages.childrens.list')->with([
@@ -63,7 +63,7 @@ class ChildrensController extends Controller
                 throw new Exception('Failed to add children.');
             }
 
-            $childrens = ChildrenService::getChildrens();
+            $childrens = ChildrenService::getChildrensPaginate();
             $data_view = view('pages.templates.childrens.listing', compact('childrens'))->render();
 
             return response()->json([
@@ -123,7 +123,7 @@ class ChildrensController extends Controller
                 throw new Exception('Failed to update children.');
             }
 
-            $childrens = ChildrenService::getChildrens();
+            $childrens = ChildrenService::getChildrensPaginate();
             $data_view = view('pages.templates.childrens.listing', compact('childrens'))->render();
 
             return response()->json([
@@ -149,7 +149,7 @@ class ChildrensController extends Controller
                 throw new Exception('Failed to delete children.');
             }
 
-            $childrens = ChildrenService::getChildrens();
+            $childrens = ChildrenService::getChildrensPaginate();
             $data_view = view('pages.templates.childrens.listing', compact('childrens'))->render();
 
             return response()->json([

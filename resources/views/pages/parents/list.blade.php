@@ -17,6 +17,8 @@
         </div>
         <button type="button" data-url="{{ route('parents.create') }}" class="btn btn-primary p-2 m-2 add-parent" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">Add Parent</button>
 
+        <button type="button" id="delete-parents" data-url="{{ route('parents.destroy.multiple') }}" class="btn btn-primary p-2 m-2 d-none">Delete Parent(s)</button>
+
         <div id="parent_listing_table">
             @include('pages.templates.parents.listing', ['parents' => $parents ?? null])
         </div>

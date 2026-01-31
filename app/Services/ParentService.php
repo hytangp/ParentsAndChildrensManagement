@@ -11,6 +11,10 @@ class ParentService
         return Parents::select('id', 'first_name', 'last_name', 'email', 'country', 'birth_date', 'profile_image')->get();
     }
 
+    public static function getParentsPaginate(){
+        return Parents::select('id', 'first_name', 'last_name', 'email', 'country', 'birth_date', 'profile_image')->paginate(5);
+    }
+
     public static function getParent($id){
         return Parents::find($id);
     }
@@ -122,6 +126,30 @@ class ParentService
         }
 
         return $parent->delete();
+    }
+
+    public static function deleteParents($data){
+        $ids = $data['ids'];
+        foreach($ids as $id){
+            $parent = Parents::find($id);
+
+            if(!empty($parent->profile_image) && Storage::disk('public')->exists($parent->profile_image)){
+                Storage::disk('public')->delete($parent->profile_image);
+            }
+    
+            if(!empty($parent->residential_proof)){
+                foreach(json_decode($parent->residential_proof) as $proof){
+                    if(Storage::disk('public')->exists($proof)){
+                        Storage::disk('public')->delete($proof);
+                    }
+                }
+            }
+            
+            $parent->delete();
+        }
+
+
+        return true;
     }
 }
 ?>

@@ -22,4 +22,6 @@ Route::middleware(['auth', 'profile.completed'])->group(function () {
     
     Route::resource('parents', App\Http\Controllers\ParentsController::class);
     Route::resource('childrens', App\Http\Controllers\ChildrensController::class);
+
+    Route::post('parents/multiple_delete', [App\Http\Controllers\ParentController::class, 'destroyMultiple'])->name('parents.destroy.multiple');
 });
